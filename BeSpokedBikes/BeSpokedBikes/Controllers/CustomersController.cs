@@ -45,10 +45,9 @@ namespace BeSpokedBikes.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Customer>> PutAsync(int id, [FromBody] Customer customer)
         {
-            
             if (id != customer.Id)
             {
-                throw new ArgumentException("");
+                throw new ArgumentException("IDs do not match");
             }
 
             return Ok(await _service.Update(id, customer));

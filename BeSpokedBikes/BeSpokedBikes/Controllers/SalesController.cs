@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
@@ -44,6 +45,11 @@ namespace BeSpokedBikes.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Sale value)
         {
+            if (id != value.Id)
+            {
+                throw new ArgumentException("IDs do not match");
+            }
+
             return Ok(await _service.Update(id, value));
         }
 
