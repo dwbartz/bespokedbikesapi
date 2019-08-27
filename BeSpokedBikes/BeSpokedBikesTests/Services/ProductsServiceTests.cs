@@ -14,7 +14,7 @@ namespace BeSpokedBikesTests.Services
         private TestContext _context;
 
         private const string ConnectionString =
-            "Server=(localdb)\\mssqllocaldb;Database=BeSpokedBikes;Trusted_Connection=True;";
+            "Server=(localdb)\\mssqllocaldb;Database=BeSpokedBikesTests;Trusted_Connection=True;";
 
         [SetUp]
         public void Setup()
