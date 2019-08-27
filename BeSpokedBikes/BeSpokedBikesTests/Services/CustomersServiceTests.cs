@@ -1,48 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using BeSpokedBikes.Controllers;
-using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
 using BeSpokedBikes.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace BeSpokedBikesTests
+namespace BeSpokedBikesTests.Services
 {
-    [TestFixture]
-    public class CustomersControllerTests
-    {
-        private CustomersController _controller;
-
-        private const string ConnectionString =
-            "Server=(localdb)\\mssqllocaldb;Database=BeSpokedBikes;Trusted_Connection=True;";
-
-        private BikesContext _context;
-
-        [SetUp]
-        public void Setup()
-        {
-            var builder = new DbContextOptionsBuilder().UseSqlServer(ConnectionString);
-            _context = new BikesContext(builder.Options);
-            _controller = new CustomersController(_context);
-        }
-
-        [Test]
-        public async Task GetAllCustomers()
-        {
-            ActionResult<IEnumerable<Customer>> response = await _controller.Get();
-            var customers = response.Value;
-            Assert.IsNotNull(customers);
-        }
-    }
-
     [TestFixture]
     public class CustomersServiceTests
     {
         private CustomersService _service;
-        private BikesContext _context;
+        private TestContext _context;
 
         private const string ConnectionString =
             "Server=(localdb)\\mssqllocaldb;Database=BeSpokedBikes;Trusted_Connection=True;";
@@ -51,7 +20,7 @@ namespace BeSpokedBikesTests
         public void Setup()
         {
             var builder = new DbContextOptionsBuilder().UseSqlServer(ConnectionString);
-            _context = new BikesContext(builder.Options);
+            _context = new TestContext(builder.Options);
             _service = new CustomersService(_context);
 
             using (var transaction = _context.Database.BeginTransaction())
@@ -71,6 +40,7 @@ namespace BeSpokedBikesTests
                 _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Customers] OFF");
                 transaction.Commit();
             }
+
         }
 
         [TearDown]

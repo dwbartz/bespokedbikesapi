@@ -16,7 +16,8 @@ namespace BeSpokedBikes.DAL
             Database.EnsureCreated();
         }
 
-        public BikesContext(DbContextOptions options) : base(options)
+        // For Unit Testing
+        protected BikesContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
         }
