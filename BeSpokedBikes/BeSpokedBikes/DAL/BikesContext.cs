@@ -10,14 +10,7 @@ namespace BeSpokedBikes.DAL
             Database.EnsureCreated();
         }
 
-        // ReSharper disable once UnusedMember.Global
         public BikesContext(DbContextOptions<BikesContext> options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
-
-        // For Unit Testing
-        protected BikesContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
         }
