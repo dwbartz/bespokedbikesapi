@@ -9,18 +9,18 @@ namespace BeSpokedBikesTests
     [TestFixture]
     public class CustomersControllerTests
     {
-        private CustomersController controller;
+        private CustomersController _controller;
 
         [SetUp]
         public void Setup()
         {
-            controller = new CustomersController();
+            _controller = new CustomersController(new BikesContext());
         }
 
         [Test]
         public async Task GetAllCustomers()
         {
-            var result = await controller.Get();
+            var result = await _controller.Get();
             var customers = result.Value;
         }
     }
@@ -33,7 +33,7 @@ namespace BeSpokedBikesTests
         [SetUp]
         public void Setup()
         {
-//            service = new CustomersService(new BikesContext());
+            service = new CustomersService(new BikesContext());
         }
 
         [Test]

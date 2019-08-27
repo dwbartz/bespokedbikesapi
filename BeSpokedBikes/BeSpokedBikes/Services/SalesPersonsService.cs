@@ -26,12 +26,25 @@ namespace BeSpokedBikes.Services
             return await _context.SalesPersons.FirstAsync(x => x.Id == id);
         }
 
-        public SalesPerson Insert(SalesPerson value)
+        public async Task<SalesPerson> Insert(SalesPerson value)
+        {
+            if (await _context.SalesPersons.AnyAsync(x =>
+                x.Id == value.Id || (x.FirstName == value.FirstName && x.LastName == value.LastName)))
+            {
+                throw new ArgumentException("SalesPerson already exists!");
+            }
+
+            _context.SalesPersons.Add(value);
+            await _context.SaveChangesAsync();
+            return value;
+        }
+
+        public async Task<SalesPerson> Update(int id, SalesPerson value)
         {
             throw new NotImplementedException();
         }
-
-        public SalesPerson Update(int id, SalesPerson value)
+        
+        public async Task Remove(int id)
         {
             throw new NotImplementedException();
         }

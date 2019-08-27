@@ -2,6 +2,8 @@
 
 namespace BeSpokedBikes.Models
 {
+    // TODO: Setup Joins
+
     public class Sale
     {
         public int Id { get; set; }
@@ -11,8 +13,9 @@ namespace BeSpokedBikes.Models
         public DateTime SalesDate { get; set; }
     }
 
-    public class Sale2
+    public class SaleForm
     {
+        public int Id { get; set; }
         public int ProductId { get; }
         public int SalesPersonId { get; }
         public int CustomerId { get; }

@@ -26,12 +26,25 @@ namespace BeSpokedBikes.Services
             return await _context.Products.FirstAsync(x => x.Id == id);
         }
 
-        public Product Insert(Product value)
+        public async Task<Product> Insert(Product value)
+        {
+            if (await _context.Products.AnyAsync(x =>
+                x.Id == value.Id || (x.Name == value.Name && x.Manufacturer == value.Manufacturer)))
+            {
+                throw new ArgumentException("Product already exists!");
+            }
+
+            _context.Products.Add(value);
+            await _context.SaveChangesAsync();
+            return value;
+        }
+
+        public async Task<Product> Update(int id, Product value)
         {
             throw new NotImplementedException();
         }
-
-        public Product Update(int id, Product value)
+        
+        public async Task Remove(int id)
         {
             throw new NotImplementedException();
         }

@@ -34,20 +34,25 @@ namespace BeSpokedBikes.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] Sale value)
+        public async Task<ActionResult> Post([FromBody] SaleForm value)
         {
+            var sale = await _service.Insert(value);
+            return Created(Url.Action("Get", sale.Id), sale);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Sale value)
+        public async Task<ActionResult> Put(int id, [FromBody] SaleForm value)
         {
+            return Ok(await _service.Update(id, value));
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            await _service.Remove(id);
+            return Ok();
         }
     }
 }

@@ -26,12 +26,17 @@ namespace BeSpokedBikes.Services
             return await _context.Discounts.FirstAsync(x => x.Id == id);
         }
 
-        public Discount Insert(Discount value)
+        public async Task<Discount> Insert(Discount value)
         {
             throw new NotImplementedException();
         }
 
-        public Discount Update(int id, Discount value)
+        public async Task<Discount> Update(int id, Discount value)
+        {
+            throw new NotImplementedException();
+        }
+        
+        public async Task Remove(int id)
         {
             throw new NotImplementedException();
         }
