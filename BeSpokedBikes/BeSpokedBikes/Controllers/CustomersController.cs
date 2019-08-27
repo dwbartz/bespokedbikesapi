@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
+using BeSpokedBikes.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeSpokedBikes.Controllers
@@ -10,39 +14,53 @@ namespace BeSpokedBikes.Controllers
     {
         private readonly CustomersService _service;
 
+        public CustomersController(BikesContext context)
+        {
+            _service = new CustomersService(context);
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Customer>> Get()
+        public async Task<ActionResult<IEnumerable<Customer>>> Get()
         {
-            return Ok(_service.GetAll());
+            return Ok(await _service.GetAll());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<Customer> Get(int id)
+        public async Task<ActionResult<Customer>> Get(int id)
         {
-            return Ok(_service.GetById(id));
+            return Ok(await _service.GetById(id));
         }
 
         // POST api/values
         [HttpPost]
-        public ActionResult<Customer> Post([FromBody] Customer value)
+        public async Task<ActionResult<Customer>> Post([FromBody] Customer customer)
         {
-            var created = _service.Insert(value);
-            return Created($"", created);
+            var created = await _service.Insert(customer);
+            return Created(Url.Action("Get", created.Id), created);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public ActionResult<Customer> Put(int id, [FromBody] Customer value)
+        public async Task<ActionResult<Customer>> PutAsync(int id, [FromBody] Customer customer)
         {
-            return Ok(_service.Update(id, value));
+            
+            if (id != customer.Id)
+            {
+                throw new ArgumentException("");
+            }
+
+            return Ok(await _service.Update(id, customer));
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
+            await _service.Remove(id);
+            return Ok();
         }
     }
+
 }

@@ -4,12 +4,13 @@ namespace BeSpokedBikes.Models
 {
     public class SalesPerson
     {
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string Address { get; }
-        public string Phone { get; }
-        public DateTime StartDate { get; }
-        public DateTime TerminationDate { get; }
-        public string Manager { get; }
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime TerminationDate { get; set; }
+        public string Manager { get; set; }
     }
 }

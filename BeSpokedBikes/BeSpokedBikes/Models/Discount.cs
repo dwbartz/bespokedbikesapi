@@ -4,9 +4,10 @@ namespace BeSpokedBikes.Models
 {
     public class Discount
     {
-        public int ProductId { get; }
-        public DateTime BeginDate { get; }
-        public DateTime EndDate { get; }
-        public decimal DiscountPercentage { get; }
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public decimal DiscountPercentage { get; set; }
     }
 }

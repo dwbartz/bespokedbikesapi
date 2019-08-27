@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BeSpokedBikes.Models;
+using BeSpokedBikes.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeSpokedBikes.Controllers

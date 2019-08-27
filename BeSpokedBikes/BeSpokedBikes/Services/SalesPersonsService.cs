@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BeSpokedBikes.Models;
 
-namespace BeSpokedBikes.Controllers
+namespace BeSpokedBikes.Services
 {
     public class SalesPersonsService
     {
