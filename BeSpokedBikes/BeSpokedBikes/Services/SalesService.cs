@@ -33,14 +33,21 @@ namespace BeSpokedBikes.Services
             return await GetById(value.Id);
         }
 
-        public async Task<Sale> Update(int id, Sale value)
+        public async Task<Sale> Update(Sale value)
         {
             var sale = await GetById(value.Id);
+
+            if (sale == null)
+            {
+                throw new ArgumentException($"Cannot update {nameof(Sale)} for Id {value.Id}, {nameof(Sale)} not found");
+            }
+
             sale.CustomerId = value.CustomerId;
             sale.ProductId = value.ProductId;
             sale.SalesPersonId = value.SalesPersonId;
+            
             await _context.SaveChangesAsync();
-            return await GetById(id);
+            return await GetById(value.Id);
         }
         
         public async Task Remove(int id)

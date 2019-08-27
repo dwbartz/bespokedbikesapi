@@ -28,12 +28,27 @@ namespace BeSpokedBikes.Services
 
         public async Task<Discount> Insert(Discount value)
         {
-            throw new NotImplementedException();
+            _context.Discounts.Add(value);
+            await _context.SaveChangesAsync();
+            return await GetById(value.Id);
         }
 
-        public async Task<Discount> Update(int id, Discount value)
+        public async Task<Discount> Update(Discount value)
         {
-            throw new NotImplementedException();
+            var discount = await GetById(value.Id);
+
+            if (discount == null)
+            {
+                throw new ArgumentException($"Cannot update {nameof(Discount)} for Id {value.Id}, {nameof(Discount)} not found");
+            }
+
+            discount.BeginDate = value.BeginDate;
+            discount.DiscountPercentage = value.DiscountPercentage;
+            discount.EndDate = value.EndDate;
+            discount.ProductId = value.ProductId;
+
+            await _context.SaveChangesAsync();
+            return await GetById(value.Id);
         }
         
         public async Task Remove(int id)

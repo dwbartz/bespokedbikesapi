@@ -39,9 +39,25 @@ namespace BeSpokedBikes.Services
             return value;
         }
 
-        public async Task<Product> Update(int id, Product value)
+        public async Task<Product> Update(Product value)
         {
-            throw new NotImplementedException();
+            var product = await GetById(value.Id);
+
+            if (product == null)
+            {
+                throw new ArgumentException($"Cannot update {nameof(Product)} for Id {value.Id}, {nameof(Product)} not found");
+            }
+
+            product.Manufacturer = value.Manufacturer;
+            product.Name = value.Name;
+            product.CommissionPercentage = value.CommissionPercentage;
+            product.PurchasePrice = value.PurchasePrice;
+            product.QuantityAvailable = value.QuantityAvailable;
+            product.SalePrice = value.SalePrice;
+            product.Style = value.Style;
+
+            await _context.SaveChangesAsync();
+            return await GetById(value.Id);
         }
 
         public async Task Remove(int id)

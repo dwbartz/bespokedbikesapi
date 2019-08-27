@@ -16,6 +16,11 @@ namespace BeSpokedBikes.DAL
             Database.EnsureCreated();
         }
 
+        public BikesContext(DbContextOptions options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<Product> Products { get; set; }

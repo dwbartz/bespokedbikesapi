@@ -50,7 +50,7 @@ namespace BeSpokedBikes.Controllers
                 throw new ArgumentException("IDs do not match");
             }
 
-            return Ok(await _service.Update(id, value));
+            return Ok(await _service.Update(value));
         }
 
         // DELETE api/values/5

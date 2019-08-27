@@ -28,12 +28,28 @@ namespace BeSpokedBikes.Services
 
         public async Task<Customer> Insert(Customer customer)
         {
-            throw new NotImplementedException();
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+            return await GetById(customer.Id);
         }
 
-        public async Task<Customer> Update(int id, Customer customer)
+        public async Task<Customer> Update(Customer value)
         {
-            throw new NotImplementedException();
+            var customer = await GetById(value.Id);
+
+            if (customer == null)
+            {
+                throw new ArgumentException($"Cannot update {nameof(Customer)} for Id {value.Id}, {nameof(Customer)} not found");
+            }
+
+            customer.Address = value.Address;
+            customer.FirstName = value.FirstName;
+            customer.LastName = value.LastName;
+            customer.Phone = value.Phone;
+            customer.StartDate = value.StartDate;
+
+            await _context.SaveChangesAsync();
+            return await GetById(value.Id);
         }
         
         public async Task Remove(int id)
