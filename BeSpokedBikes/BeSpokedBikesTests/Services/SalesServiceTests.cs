@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
 using BeSpokedBikes.Services;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace BeSpokedBikesTests.Services
     public class SalesServiceTests
     {
         private SalesService _service;
-        private TestContext _context;
+        private BikesContext _context;
 
         private const string ConnectionString =
             "Server=(localdb)\\mssqllocaldb;Database=BeSpokedBikesTests;Trusted_Connection=True;";
@@ -19,8 +20,8 @@ namespace BeSpokedBikesTests.Services
         [SetUp]
         public void Setup()
         {
-            var builder = new DbContextOptionsBuilder().UseSqlServer(ConnectionString);
-            _context = new TestContext(builder.Options);
+            var builder = new DbContextOptionsBuilder<BikesContext>().UseSqlServer(ConnectionString);
+            _context = new BikesContext(builder.Options);
             _service = new SalesService(_context);
 
             using (var transaction = _context.Database.BeginTransaction())

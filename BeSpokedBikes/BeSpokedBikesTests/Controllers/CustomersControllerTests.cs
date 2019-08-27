@@ -17,13 +17,13 @@ namespace BeSpokedBikesTests
         private const string ConnectionString =
             "Server=(localdb)\\mssqllocaldb;Database=BeSpokedBikes;Trusted_Connection=True;";
 
-        private TestContext _context;
+        private BikesContext _context;
 
         [SetUp]
         public void Setup()
         {
-            var builder = new DbContextOptionsBuilder().UseSqlServer(ConnectionString);
-            _context = new TestContext(builder.Options);
+            var builder = new DbContextOptionsBuilder<BikesContext>().UseSqlServer(ConnectionString);
+            _context = new BikesContext(builder.Options);
             _controller = new CustomersController(_context);
         }
 
