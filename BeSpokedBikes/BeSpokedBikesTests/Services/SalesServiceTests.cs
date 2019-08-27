@@ -25,47 +25,58 @@ namespace BeSpokedBikesTests.Services
 
             using (var transaction = _context.Database.BeginTransaction())
             {
+                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Customers] ON");
+                _context.Customers.Add(new Customer
+                {
+                    Id = 1,
+                    FirstName = "First",
+                    LastName = "Last",
+                    Address = "1 Street",
+                    Phone = "123-123-1234",
+                    StartDate = DateTime.UtcNow
+                });
+                _context.SaveChanges();
+                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Customers] OFF");
+
+                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Products] ON");
+                _context.Products.Add(new Product
+                {
+                    Id = 1,
+                    Manufacturer = "Acme",
+                    Name = "Toy",
+                    SalePrice = new decimal(1.25),
+                    Style = "Toddler",
+                    PurchasePrice = new decimal(1.50),
+                    QuantityAvailable = 5,
+                    CommissionPercentage = new decimal(.05)
+                });
+                _context.SaveChanges();
+                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Products] OFF");
+
+                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [SalesPersons] ON");
+                _context.SalesPersons.Add(new SalesPerson
+                {
+                    Id = 1,
+                    FirstName = "Harecore",
+                    LastName = "Salesman",
+                    Address = "1 Street Ln",
+                    Phone = "321-321-4321",
+                    TerminationDate = DateTime.MaxValue,
+                    StartDate = DateTime.MinValue,
+                    Manager = "Joe"
+                });
+                _context.SaveChanges();
+                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [SalesPersons] OFF");
+
+                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Sales] ON");
                 _context.Sales.Add(new Sale
                 {
                     Id = 1,
                     CustomerId = 1,
-                    Customer = new Customer
-                    {
-                        Id = 1,
-                        FirstName = "First",
-                        LastName = "Last",
-                        Address = "1 Street",
-                        Phone = "123-123-1234",
-                        StartDate = DateTime.UtcNow
-                    },
                     ProductId = 1,
-                    Product = new Product
-                    {
-                        Id = 1,
-                        Manufacturer = "Acme",
-                        Name = "Toy",
-                        SalePrice = new decimal(1.25),
-                        Style = "Toddler",
-                        PurchasePrice = new decimal(1.50),
-                        QuantityAvailable = 5,
-                        CommissionPercentage = new decimal(.05)
-                    },
                     SalesPersonId = 1,
-                    SalesPerson = new SalesPerson
-                    {
-                        Id = 1,
-                        FirstName = "Harecore",
-                        LastName = "Salesman",
-                        Address = "1 Street Ln",
-                        Phone = "321-321-4321",
-                        TerminationDate = DateTime.MaxValue,
-                        StartDate = DateTime.MinValue,
-                        Manager = "Joe"
-                    },
                     SalesDate = DateTime.UtcNow
                 });
-                
-                _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Sales] ON");
                 _context.SaveChanges();
                 _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Sales] OFF");
                 transaction.Commit();
@@ -75,8 +86,10 @@ namespace BeSpokedBikesTests.Services
         [TearDown]
         public void TearDown()
         {
+            _context.RemoveRange(_context.Customers);
+            _context.RemoveRange(_context.Products);
             _context.RemoveRange(_context.Sales);
-            _context.RemoveRange(_context.Sales);
+            _context.RemoveRange(_context.SalesPersons);
             _context.SaveChanges();
         }
 

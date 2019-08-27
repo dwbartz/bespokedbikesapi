@@ -48,7 +48,6 @@ namespace BeSpokedBikesTests.Services
         public void TearDown()
         {
             _context.RemoveRange(_context.Products);
-            _context.RemoveRange(_context.Products);
             _context.SaveChanges();
         }
 
