@@ -43,10 +43,16 @@ namespace BeSpokedBikes.Services
         {
             throw new NotImplementedException();
         }
-        
+
         public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            var product = await GetById(id);
+
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
