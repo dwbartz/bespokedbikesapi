@@ -34,7 +34,7 @@ namespace BeSpokedBikes.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] SaleForm value)
+        public async Task<ActionResult> Post([FromBody] Sale value)
         {
             var sale = await _service.Insert(value);
             return Created(Url.Action("Get", sale.Id), sale);
@@ -42,7 +42,7 @@ namespace BeSpokedBikes.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] SaleForm value)
+        public async Task<ActionResult> Put(int id, [FromBody] Sale value)
         {
             return Ok(await _service.Update(id, value));
         }

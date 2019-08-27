@@ -26,14 +26,14 @@ namespace BeSpokedBikes.Services
             return await _context.Sales.FirstAsync(x => x.Id == id);
         }
 
-        public async Task<Sale> Insert(SaleForm value)
+        public async Task<Sale> Insert(Sale value)
         {
             _context.Sales.Add(value);
             await _context.SaveChangesAsync();
             return await GetById(value.Id);
         }
 
-        public async Task<Sale> Update(int id, SaleForm value)
+        public async Task<Sale> Update(int id, Sale value)
         {
             throw new NotImplementedException();
         }
