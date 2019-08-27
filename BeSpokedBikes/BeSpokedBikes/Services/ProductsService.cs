@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeSpokedBikes.Services
 {
     public class ProductsService
     {
-        public IList<Product> GetAll()
+        private readonly BikesContext _context;
+
+        public ProductsService(BikesContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Product GetById(int id)
+        public async Task<IList<Product>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Products.ToListAsync();
+        }
+
+        public async Task<Product> GetById(int id)
+        {
+            return await _context.Products.FirstAsync(x => x.Id == id);
         }
 
         public Product Insert(Product value)

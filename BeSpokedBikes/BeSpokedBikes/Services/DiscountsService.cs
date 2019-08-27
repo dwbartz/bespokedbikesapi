@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeSpokedBikes.Services
 {
     public class DiscountsService
     {
-        public IList<Discount> GetAll()
+        private readonly BikesContext _context;
+
+        public DiscountsService(BikesContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Discount GetById(int id)
+        public async Task<IList<Discount>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Discounts.ToListAsync();
+        }
+
+        public async Task<Discount> GetById(int id)
+        {
+            return await _context.Discounts.FirstAsync(x => x.Id == id);
         }
 
         public Discount Insert(Discount value)

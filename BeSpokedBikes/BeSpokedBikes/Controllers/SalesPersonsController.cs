@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BeSpokedBikes.Models;
 using BeSpokedBikes.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,18 +12,23 @@ namespace BeSpokedBikes.Controllers
     {
         private readonly SalesPersonsService _service;
 
+        public SalesPersonsController(SalesPersonsService service)
+        {
+            _service = service;
+        }
+
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<SalesPerson>> Get()
+        public async Task<ActionResult<IEnumerable<SalesPerson>>> Get()
         {
-            return Ok(_service.GetAll());
+            return Ok(await _service.GetAll());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<SalesPerson> Get(int id)
+        public async Task<ActionResult<SalesPerson>> Get(int id)
         {
-            return Ok(_service.GetById(id));
+            return Ok(await _service.GetById(id));
         }
 
         // POST api/values

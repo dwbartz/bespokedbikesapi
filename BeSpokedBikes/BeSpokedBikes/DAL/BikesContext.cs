@@ -5,6 +5,12 @@ namespace BeSpokedBikes.DAL
 {
     public class BikesContext : DbContext
     {
+        public BikesContext()
+        {
+            Database.EnsureCreated();
+        }
+
+        // ReSharper disable once UnusedMember.Global
         public BikesContext(DbContextOptions<BikesContext> options) : base(options)
         {
             Database.EnsureCreated();
