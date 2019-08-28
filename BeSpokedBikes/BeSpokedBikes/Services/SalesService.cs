@@ -18,12 +18,20 @@ namespace BeSpokedBikes.Services
 
         public async Task<IList<Sale>> GetAll()
         {
-            return await _context.Sales.ToListAsync();
+            return await _context.Sales
+                .Include(x => x.Product)
+                .Include(x => x.SalesPerson)
+                .Include(x => x.Customer)
+                .ToListAsync();
         }
 
         public async Task<Sale> GetById(int id)
         {
-            return await _context.Sales.FirstAsync(x => x.Id == id);
+            return await _context.Sales
+                .Include(x => x.Product)
+                .Include(x => x.SalesPerson)
+                .Include(x => x.Customer)
+                .FirstAsync(x => x.Id == id);
         }
 
         public async Task<Sale> Insert(Sale value)

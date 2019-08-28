@@ -58,7 +58,7 @@ namespace BeSpokedBikesTests.Services
             var result = await _service.GetAll();
             Assert.IsNotNull(result);
         }
-
+        
         [Test]
         public async Task GetProduct()
         {

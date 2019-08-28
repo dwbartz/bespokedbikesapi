@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
@@ -79,6 +80,20 @@ namespace BeSpokedBikesTests.Services
             var result = await _service.GetById(1);
             Assert.IsNotNull(result);
         }
+        
+        [Test]
+        public async Task GetAllDiscounts_Details()
+        {
+            var result = await _service.GetAll();
+            Assert.IsNotNull(result.First().Product);
+        }
+
+        [Test]
+        public async Task GetDiscount_Details()
+        {
+            var result = await _service.GetById(1);
+            Assert.IsNotNull(result.Product);
+        }
 
         [Test]
         public async Task AddDiscount()
@@ -87,7 +102,8 @@ namespace BeSpokedBikesTests.Services
             {
                 BeginDate = DateTime.UtcNow,
                 DiscountPercentage = new decimal(.30),
-                EndDate = DateTime.UtcNow.AddDays(2)
+                EndDate = DateTime.UtcNow.AddDays(2),
+                ProductId = 1
             });
 
             Assert.IsNotNull(result);

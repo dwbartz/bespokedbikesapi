@@ -174,5 +174,7 @@ namespace BeSpokedBikesTests.Services
             Assert.AreEqual(.3875, report.First().Commission);  
             Assert.AreEqual(.175, report.Last().Commission);
         }
+
+        //TODO: Should the discount be included when computing commission?
     }
 }

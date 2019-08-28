@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
@@ -100,12 +101,30 @@ namespace BeSpokedBikesTests.Services
             var result = await _service.GetAll();
             Assert.IsNotNull(result);
         }
+        
+        [Test]
+        public async Task GetAllSales_HasDetails()
+        {
+            var result = await _service.GetAll();
+            Assert.IsNotNull(result.First().Product);
+            Assert.IsNotNull(result.First().Customer);
+            Assert.IsNotNull(result.First().SalesPerson);
+        }
 
         [Test]
         public async Task GetSale()
         {
             var result = await _service.GetById(1);
             Assert.IsNotNull(result);
+        }
+        
+        [Test]
+        public async Task GetSale_HasDetails()
+        {
+            var result = await _service.GetById(1);
+            Assert.IsNotNull(result.Product);
+            Assert.IsNotNull(result.Customer);
+            Assert.IsNotNull(result.SalesPerson);
         }
 
         [Test]
