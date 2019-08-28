@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BeSpokedBikes.Models;
 using BeSpokedBikes.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeSpokedBikes.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("Default")]
     [ApiController]
     public class SalesPersonsController : ControllerBase
     {

@@ -33,6 +33,16 @@ namespace BeSpokedBikes
             services.AddScoped<ReportsService>();
             services.AddScoped<SalesPersonsService>();
             services.AddScoped<SalesService>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Default", builder =>
+                {
+                    builder.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

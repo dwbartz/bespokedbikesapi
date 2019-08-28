@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
 using BeSpokedBikes.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeSpokedBikes.Controllers
 {
     [ApiController]
+    [EnableCors("Default")]
     public class ReportsController : ControllerBase
     {
         private readonly ReportsService _service;
