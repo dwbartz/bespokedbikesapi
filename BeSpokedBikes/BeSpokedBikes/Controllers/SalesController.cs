@@ -23,9 +23,9 @@ namespace BeSpokedBikes.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Sale>>> Get()
+        public async Task<ActionResult<IEnumerable<Sale>>> Get([FromQuery] DateTime? startDate = null, [FromQuery] DateTime? endDate = null)
         {
-            return Ok(await _service.GetAll());
+            return Ok(await _service.GetAll(startDate, endDate));
         }
 
         // GET api/values/5

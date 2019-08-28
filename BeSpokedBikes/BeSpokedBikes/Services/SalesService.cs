@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BeSpokedBikes.DAL;
 using BeSpokedBikes.Models;
@@ -16,9 +17,21 @@ namespace BeSpokedBikes.Services
             _context = context;
         }
 
-        public async Task<IList<Sale>> GetAll()
+        public async Task<IList<Sale>> GetAll(DateTime? startDate = null, DateTime? endDate = null)
         {
-            return await _context.Sales
+            IQueryable<Sale> sales = _context.Sales;
+
+            if (startDate.HasValue)
+            {
+                sales = sales.Where(x => x.SalesDate >= startDate.Value);
+            }
+            
+            if (endDate.HasValue)
+            {
+                sales = sales.Where(x => x.SalesDate <= endDate.Value);
+            }
+
+            return await sales
                 .Include(x => x.Product)
                 .Include(x => x.SalesPerson)
                 .Include(x => x.Customer)

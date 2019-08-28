@@ -77,7 +77,23 @@ namespace BeSpokedBikesTests.Services
                     CustomerId = 1,
                     ProductId = 1,
                     SalesPersonId = 1,
-                    SalesDate = DateTime.UtcNow
+                    SalesDate = DateTime.Today
+                });
+                _context.Sales.Add(new Sale
+                {
+                    Id = 2,
+                    CustomerId = 1,
+                    ProductId = 1,
+                    SalesPersonId = 1,
+                    SalesDate = DateTime.Today
+                });
+                _context.Sales.Add(new Sale
+                {
+                    Id = 3,
+                    CustomerId = 1,
+                    ProductId = 1,
+                    SalesPersonId = 1,
+                    SalesDate = DateTime.UtcNow.AddDays(1)
                 });
                 _context.SaveChanges();
                 _context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Sales] OFF");
@@ -109,6 +125,27 @@ namespace BeSpokedBikesTests.Services
             Assert.IsNotNull(result.First().Product);
             Assert.IsNotNull(result.First().Customer);
             Assert.IsNotNull(result.First().SalesPerson);
+        }
+        
+        [Test]
+        public async Task GetAllSales_FilterByStartDate()
+        {
+            var result = await _service.GetAll(startDate: DateTime.Today.AddDays(1));
+            Assert.AreEqual(1, result.Count);
+        }
+        
+        [Test]
+        public async Task GetAllSales_FilterByEndDate()
+        {
+            var result = await _service.GetAll(endDate: DateTime.Today);
+            Assert.AreEqual(2, result.Count);
+        }
+        
+        [Test]
+        public async Task GetAllSales_NoFilter()
+        {
+            var result = await _service.GetAll();
+            Assert.AreEqual(3, result.Count);
         }
 
         [Test]
