@@ -153,7 +153,7 @@ namespace BeSpokedBikes
                 context.SaveChanges();
                 context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [SalesPersons] OFF");
 
-                context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Discount] ON");
+                context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Discounts] ON");
                 context.Add(new Discount
                 {
                     BeginDate = DateTime.MinValue,
@@ -163,7 +163,7 @@ namespace BeSpokedBikes
                     Id = 1
                 });
                 context.SaveChanges();
-                context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Discount] OFF");
+                context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Discounts] OFF");
 
                 context.Database.ExecuteSqlCommand(@"SET IDENTITY_INSERT [Sales] ON");
                 context.Sales.Add(new Sale
