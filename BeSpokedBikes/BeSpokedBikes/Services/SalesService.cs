@@ -66,6 +66,7 @@ namespace BeSpokedBikes.Services
             sale.CustomerId = value.CustomerId;
             sale.ProductId = value.ProductId;
             sale.SalesPersonId = value.SalesPersonId;
+            sale.SalesDate = value.SalesDate;
             
             await _context.SaveChangesAsync();
             return await GetById(value.Id);
