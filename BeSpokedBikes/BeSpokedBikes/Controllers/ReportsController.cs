@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BeSpokedBikes.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     [EnableCors("Default")]
     public class ReportsController : ControllerBase
     {
@@ -18,9 +19,9 @@ namespace BeSpokedBikes.Controllers
         {
             _service = new ReportsService(context);
         }
-
-        [Route("api/[controller]/SalesPersonCommission")]
+        
         [HttpGet]
+        [Route("SalesPersonCommission")]
         public async Task<ActionResult<IEnumerable<SalesPersonCommission>>> Get([FromQuery] int year,[FromQuery] int quarter)
         {
             return Ok(await _service.GetQuarterlySalesPersonCommissionReport(year, quarter));
